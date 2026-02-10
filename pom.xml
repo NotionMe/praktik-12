@@ -55,6 +55,12 @@
       <artifactId>datafaker</artifactId>
       <version>2.5.2</version>
     </dependency>
+    <!-- AtlantaFX -->
+    <dependency>
+      <groupId>io.github.mkpaz</groupId>
+      <artifactId>atlantafx-base</artifactId>
+      <version>2.0.1</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -76,6 +82,23 @@
         <configuration>
           <!-- !!! ЗМІНИ, якщо твій клас в іншому пакеті -->
           <mainClass>ua.praktik.Main</mainClass>
+        </configuration>
+      </plugin>
+      <!-- Spotless: mvn spotless:check, mvn spotless:apply -->
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>2.43.0</version>
+        <configuration>
+          <java>
+            <googleJavaFormat>
+              <version>1.19.2</version>
+              <style>GOOGLE</style>
+            </googleJavaFormat>
+            <removeUnusedImports/>
+            <trimTrailingWhitespace/>
+            <endWithNewline/>
+          </java>
         </configuration>
       </plugin>
     </plugins>

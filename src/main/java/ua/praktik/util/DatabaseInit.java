@@ -5,9 +5,10 @@ import java.sql.Statement;
 
 public class DatabaseInit {
 
-    public static void initUser() {
+  public static void initUser() {
 
-        String sql = """
+    String sql =
+        """
                 CREATE TABLE IF NOT EXISTS users (
                         id INT PRIMARY KEY,
                         name VARCHAR(255),
@@ -15,54 +16,38 @@ public class DatabaseInit {
                     );
                 """;
 
-        try (Connection conn = DatabaseConfig.getConnection();
-                Statement st = conn.createStatement()) {
+    try (Connection conn = DatabaseConfig.getConnection();
+        Statement st = conn.createStatement()) {
 
-            st.execute(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+      st.execute(sql);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+  }
 
-    public static void initReview() {
+  public static void initBooks() {
 
-        String sql = """
-                CREATE TABLE IF NOT EXISTS reviewBooks (
-                        id INT PRIMARY KEY,
-                        theater_name VARCHAR(20),
-                        author VARCHAR(20),
-                        message VARCHAR(20),
-                        rating INT(11),
-                        date VARCHAR(20)
+    String sql =
+        """
+                CREATE TABLE IF NOT EXISTS books (
+                        id INT PRIMARY KEY AUTO_INCREMENT,
+                        title VARCHAR(255) NOT NULL,
+                        author VARCHAR(255) NOT NULL,
+                        isbn VARCHAR(20),
+                        publication_year INT,
+                        publisher VARCHAR(255),
+                        price DECIMAL(10, 2),
+                        page_count INT,
+                        image_path VARCHAR(500)
                     );
                 """;
 
-        try (Connection conn = DatabaseConfig.getConnection();
-                Statement st = conn.createStatement()) {
+    try (Connection conn = DatabaseConfig.getConnection();
+        Statement st = conn.createStatement()) {
 
-            st.execute(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+      st.execute(sql);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
-
-    public static void initTheaters() {
-
-        String sql = """
-                CREATE TABLE IF NOT EXISTS theaters (
-                        id INT PRIMARY KEY,
-                        theaters_name VARCHAR(20),
-                        show_name VARCHAR(20),
-                        rating INT(11)
-                    );
-                """;
-
-        try (Connection conn = DatabaseConfig.getConnection();
-                Statement st = conn.createStatement()) {
-
-            st.execute(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+  }
 }
