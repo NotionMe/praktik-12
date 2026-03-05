@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,7 +27,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import ua.praktik.model.Book;
 import ua.praktik.repository.BookRepository;
-import ua.praktik.repository.BookRepositoryImpl;
+import ua.praktik.util.AppConfig;
 
 public class MainController {
     @FXML
@@ -46,7 +48,10 @@ public class MainController {
     @FXML
     private ProgressBar progressBar;
 
-    private final BookRepository bookRepository = new BookRepositoryImpl();
+    private final AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(
+            AppConfig.class);
+
+    BookRepository bookRepository = ctx.getBean(BookRepository.class);
 
     @FXML
     private ResourceBundle resources;

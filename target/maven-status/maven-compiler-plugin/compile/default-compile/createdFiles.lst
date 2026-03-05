@@ -1,9 +1,8 @@
 ua/praktik/model/Book.class
-ua/praktik/util/DatabaseConfig.class
 ua/praktik/util/DataGenerator.class
 ua/praktik/controller/AddBookDialogController.class
-ua/praktik/util/DatabaseInit.class
 ua/praktik/controller/MainController.class
 ua/praktik/Main.class
 ua/praktik/repository/BookRepositoryImpl.class
 ua/praktik/repository/BookRepository.class
+ua/praktik/util/AppConfig.class
