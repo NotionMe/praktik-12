@@ -6,83 +6,95 @@ import ua.praktik.model.Book;
 
 public class AddBookDialogController {
 
-    @FXML
-    private TextField titleField;
+  @FXML private TextField titleField;
 
-    @FXML
-    private TextField authorField;
+  @FXML private TextField authorIdField;
 
-    @FXML
-    private TextField isbnField;
+  @FXML private TextField isbnField;
 
-    @FXML
-    private TextField yearField;
+  @FXML private TextField yearField;
 
-    @FXML
-    private TextField publisherField;
+  @FXML private TextField publisherIdField;
 
-    @FXML
-    private TextField priceField;
+  @FXML private TextField categoryIdField;
 
-    @FXML
-    private TextField pageCountField;
+  @FXML private TextField priceField;
 
-    @FXML
-    private TextField imagePathField;
+  @FXML private TextField pageCountField;
 
-    public Book getBookFromFields() {
-        String title = titleField.getText();
-        String author = authorField.getText();
-        String isbn = isbnField.getText();
-        int year = Integer.parseInt(yearField.getText());
-        String publisher = publisherField.getText();
-        double price = Double.parseDouble(priceField.getText());
-        int pageCount = Integer.parseInt(pageCountField.getText());
-        String imagePath = imagePathField.getText();
+  @FXML private TextField imagePathField;
 
-        return new Book(title, author, isbn, year, publisher, price, pageCount, imagePath);
+  public Book getBookFromFields() {
+    String title = titleField.getText();
+    Integer authorId = Integer.parseInt(authorIdField.getText());
+    String isbn = isbnField.getText();
+    Integer year = Integer.parseInt(yearField.getText());
+    Integer publisherId = Integer.parseInt(publisherIdField.getText());
+    Integer categoryId =
+        categoryIdField.getText().isEmpty() ? null : Integer.parseInt(categoryIdField.getText());
+    Double price = Double.parseDouble(priceField.getText());
+    Integer pageCount = Integer.parseInt(pageCountField.getText());
+    String imagePath = imagePathField.getText();
+
+    return Book.builder()
+        .title(title)
+        .authorId(authorId)
+        .isbn(isbn)
+        .publicationYear(year)
+        .publisherId(publisherId)
+        .categoryId(categoryId)
+        .price(price)
+        .pageCount(pageCount)
+        .imagePath(imagePath)
+        .build();
+  }
+
+  public boolean validateInput() {
+    try {
+      Integer.parseInt(yearField.getText());
+      Double.parseDouble(priceField.getText());
+      Integer.parseInt(pageCountField.getText());
+      Integer.parseInt(authorIdField.getText());
+      Integer.parseInt(publisherIdField.getText());
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
     }
+  }
 
-    public boolean validateInput() {
-        try {
-            Integer.parseInt(yearField.getText());
-            Double.parseDouble(priceField.getText());
-            Integer.parseInt(pageCountField.getText());
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
+  public TextField getTitleField() {
+    return titleField;
+  }
 
-    public TextField getTitleField() {
-        return titleField;
-    }
+  public TextField getAuthorIdField() {
+    return authorIdField;
+  }
 
-    public TextField getAuthorField() {
-        return authorField;
-    }
+  public TextField getIsbnField() {
+    return isbnField;
+  }
 
-    public TextField getIsbnField() {
-        return isbnField;
-    }
+  public TextField getYearField() {
+    return yearField;
+  }
 
-    public TextField getYearField() {
-        return yearField;
-    }
+  public TextField getPublisherIdField() {
+    return publisherIdField;
+  }
 
-    public TextField getPublisherField() {
-        return publisherField;
-    }
+  public TextField getCategoryIdField() {
+    return categoryIdField;
+  }
 
-    public TextField getPriceField() {
-        return priceField;
-    }
+  public TextField getPriceField() {
+    return priceField;
+  }
 
-    public TextField getPageCountField() {
-        return pageCountField;
-    }
+  public TextField getPageCountField() {
+    return pageCountField;
+  }
 
-    public TextField getImagePathField() {
-        return imagePathField;
-    }
+  public TextField getImagePathField() {
+    return imagePathField;
+  }
 }

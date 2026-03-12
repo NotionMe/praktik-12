@@ -1,8 +1,5 @@
 package ua.praktik.util;
 
-import java.sql.Connection;
-import java.sql.Statement;
-
 // public class DatabaseInit {
 
 //   public static void initUser() {

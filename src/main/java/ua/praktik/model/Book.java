@@ -1,179 +1,58 @@
 package ua.praktik.model;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Book {
 
-  private int id;
+  private Integer id;
+
+  @NotBlank(message = "Title cannot be empty")
   private String title;
-  private String author;
+
+  @NotNull(message = "Author ID cannot be null")
+  @Positive(message = "Author ID must be positive")
+  private Integer authorId;
+
+  @Pattern(
+      regexp =
+          "^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$",
+      message = "ISBN format is invalid")
   private String isbn;
-  private int publicationYear;
-  private String publisher;
-  private double price;
-  private int pageCount;
+
+  @Min(value = 1000, message = "Publication year must be at least 1000")
+  private Integer publicationYear;
+
+  @NotNull(message = "Publisher ID cannot be null")
+  @Positive(message = "Publisher ID must be positive")
+  private Integer publisherId;
+
+  @Positive(message = "Category ID must be positive")
+  private Integer categoryId;
+
+  @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
+  private Double price;
+
+  @Positive(message = "Page count must be positive")
+  private Integer pageCount;
+
   private String imagePath;
-
-  public Book(
-      int id,
-      String title,
-      String author,
-      String isbn,
-      int publicationYear,
-      String publisher,
-      double price,
-      int pageCount,
-      String imagePath) {
-    this.id = id;
-    this.title = title;
-    this.author = author;
-    this.isbn = isbn;
-    this.publicationYear = publicationYear;
-    this.publisher = publisher;
-    this.price = price;
-    this.pageCount = pageCount;
-    this.imagePath = imagePath;
-  }
-
-  public Book(
-      String title,
-      String author,
-      String isbn,
-      int publicationYear,
-      String publisher,
-      double price,
-      int pageCount) {
-    this.title = title;
-    this.author = author;
-    this.isbn = isbn;
-    this.publicationYear = publicationYear;
-    this.publisher = publisher;
-    this.price = price;
-    this.pageCount = pageCount;
-  }
-
-  public Book(
-      String title,
-      String author,
-      String isbn,
-      int publicationYear,
-      String publisher,
-      double price,
-      int pageCount,
-      String imagePath) {
-    this.title = title;
-    this.author = author;
-    this.isbn = isbn;
-    this.publicationYear = publicationYear;
-    this.publisher = publisher;
-    this.price = price;
-    this.pageCount = pageCount;
-    this.imagePath = imagePath;
-  }
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public String getAuthor() {
-    return author;
-  }
-
-  public void setAuthor(String author) {
-    this.author = author;
-  }
-
-  public String getIsbn() {
-    return isbn;
-  }
-
-  public void setIsbn(String isbn) {
-    this.isbn = isbn;
-  }
-
-  public int getPublicationYear() {
-    return publicationYear;
-  }
-
-  public void setPublicationYear(int publicationYear) {
-    this.publicationYear = publicationYear;
-  }
-
-  public String getPublisher() {
-    return publisher;
-  }
-
-  public void setPublisher(String publisher) {
-    this.publisher = publisher;
-  }
-
-  public double getPrice() {
-    return price;
-  }
-
-  public void setPrice(double price) {
-    this.price = price;
-  }
-
-  public int getPageCount() {
-    return pageCount;
-  }
-
-  public void setPageCount(int pageCount) {
-    this.pageCount = pageCount;
-  }
-
-  public String getImagePath() {
-    return imagePath;
-  }
-
-  public void setImagePath(String imagePath) {
-    this.imagePath = imagePath;
-  }
 
   public StringProperty imagePathProperty() {
     return new SimpleStringProperty(this.imagePath);
-  }
-
-  @Override
-  public String toString() {
-    return "Book{"
-        + "id="
-        + id
-        + ", title='"
-        + title
-        + '\''
-        + ", author='"
-        + author
-        + '\''
-        + ", isbn='"
-        + isbn
-        + '\''
-        + ", publicationYear="
-        + publicationYear
-        + ", publisher='"
-        + publisher
-        + '\''
-        + ", price="
-        + price
-        + ", pageCount="
-        + pageCount
-        + ", imagePath='"
-        + imagePath
-        + '\''
-        + '}';
   }
 }

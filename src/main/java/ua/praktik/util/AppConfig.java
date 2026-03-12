@@ -1,11 +1,7 @@
 package ua.praktik.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
+import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,15 +10,12 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.zaxxer.hikari.HikariDataSource;
-
 @Configuration
 @ComponentScan(basePackages = "ua.praktik")
 @PropertySource("classpath:database.properties")
 public class AppConfig {
 
-  @Autowired
-  Environment env;
+  @Autowired Environment env;
 
   // private static String url = "jdbc:mysql://localhost:3306/notiondb";
   // private static String user = "notion";
