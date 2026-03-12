@@ -16,13 +16,11 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     this.jdbcTemplate = jdbcTemplate;
   }
 
-  private final RowMapper<Category> rowMapper =
-      (rs, i) ->
-          Category.builder()
-              .id(rs.getInt("id"))
-              .name(rs.getString("name"))
-              .description(rs.getString("description"))
-              .build();
+  private final RowMapper<Category> rowMapper = (rs, i) -> Category.builder()
+      .id(rs.getInt("id"))
+      .name(rs.getString("name"))
+      .description(rs.getString("description"))
+      .build();
 
   @Override
   public Integer persist(Category category) {
@@ -34,8 +32,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
   @Override
   public boolean update(Category category) {
     String sql = "UPDATE categories SET name = ?, description = ? WHERE id = ?";
-    int rowsAffected =
-        jdbcTemplate.update(sql, category.getName(), category.getDescription(), category.getId());
+    int rowsAffected = jdbcTemplate.update(sql, category.getName(), category.getDescription(), category.getId());
     return rowsAffected > 0;
   }
 
@@ -43,7 +40,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
   public Optional<Category> findById(Integer id) {
     String sql = "SELECT * FROM categories WHERE id = ?";
     try {
-      Category category = jdbcTemplate.queryForObject(sql, new Object[] {id}, rowMapper);
+      Category category = jdbcTemplate.queryForObject(sql, new Object[] { id }, rowMapper);
       return Optional.ofNullable(category);
     } catch (Exception e) {
       return Optional.empty();
@@ -67,7 +64,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
   public Optional<Category> findByName(String name) {
     String sql = "SELECT * FROM categories WHERE name = ?";
     try {
-      Category category = jdbcTemplate.queryForObject(sql, new Object[] {name}, rowMapper);
+      Category category = jdbcTemplate.queryForObject(sql, new Object[] { name }, rowMapper);
       return Optional.ofNullable(category);
     } catch (Exception e) {
       return Optional.empty();
@@ -77,7 +74,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
   @Override
   public List<Category> findByDescription(String description) {
     String sql = "SELECT * FROM categories WHERE description LIKE ?";
-    return jdbcTemplate.query(sql, new Object[] {"%" + description + "%"}, rowMapper);
+    return jdbcTemplate.query(sql, new Object[] { "%" + description + "%" }, rowMapper);
   }
 
   @Override

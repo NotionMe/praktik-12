@@ -28,10 +28,7 @@ public class Book {
   @Positive(message = "Author ID must be positive")
   private Integer authorId;
 
-  @Pattern(
-      regexp =
-          "^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$",
-      message = "ISBN format is invalid")
+  @Pattern(regexp = "^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$", message = "ISBN format is invalid")
   private String isbn;
 
   @Min(value = 1000, message = "Publication year must be at least 1000")

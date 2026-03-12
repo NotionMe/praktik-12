@@ -6,50 +6,16 @@ import ua.praktik.model.Book;
 
 public interface BookRepository {
 
-  /**
-   * Save a new book to the database
-   *
-   * @param book the book to persist
-   * @return the generated ID of the new book
-   */
   Integer persist(Book book);
 
-  /**
-   * Update an existing book
-   *
-   * @param book the book to update
-   * @return true if updated successfully, false if not found
-   */
   boolean update(Book book);
 
-  /**
-   * Find a book by its ID
-   *
-   * @param id the book ID
-   * @return Optional containing the book if found
-   */
   Optional<Book> findById(Integer id);
 
-  /**
-   * Get all books from the database
-   *
-   * @return list of all books
-   */
   List<Book> findAll();
 
-  /**
-   * Delete a book by its ID
-   *
-   * @param id the book ID
-   * @return true if deleted successfully, false if not found
-   */
   boolean delete(Integer id);
 
-  /**
-   * Count total number of books
-   *
-   * @return count of books
-   */
   int count();
 
   List<Book> findByTitle(String title);

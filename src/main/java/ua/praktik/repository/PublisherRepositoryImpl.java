@@ -16,14 +16,12 @@ public class PublisherRepositoryImpl implements PublisherRepository {
     this.jdbcTemplate = jdbcTemplate;
   }
 
-  private final RowMapper<Publisher> rowMapper =
-      (rs, i) ->
-          Publisher.builder()
-              .id(rs.getInt("id"))
-              .name(rs.getString("name"))
-              .country(rs.getString("country"))
-              .foundedYear(rs.getInt("founded_year"))
-              .build();
+  private final RowMapper<Publisher> rowMapper = (rs, i) -> Publisher.builder()
+      .id(rs.getInt("id"))
+      .name(rs.getString("name"))
+      .country(rs.getString("country"))
+      .foundedYear(rs.getInt("founded_year"))
+      .build();
 
   @Override
   public Integer persist(Publisher publisher) {
@@ -36,13 +34,12 @@ public class PublisherRepositoryImpl implements PublisherRepository {
   @Override
   public boolean update(Publisher publisher) {
     String sql = "UPDATE publishers SET name = ?, country = ?, founded_year = ? WHERE id = ?";
-    int rowsAffected =
-        jdbcTemplate.update(
-            sql,
-            publisher.getName(),
-            publisher.getCountry(),
-            publisher.getFoundedYear(),
-            publisher.getId());
+    int rowsAffected = jdbcTemplate.update(
+        sql,
+        publisher.getName(),
+        publisher.getCountry(),
+        publisher.getFoundedYear(),
+        publisher.getId());
     return rowsAffected > 0;
   }
 
@@ -50,7 +47,7 @@ public class PublisherRepositoryImpl implements PublisherRepository {
   public Optional<Publisher> findById(Integer id) {
     String sql = "SELECT * FROM publishers WHERE id = ?";
     try {
-      Publisher publisher = jdbcTemplate.queryForObject(sql, new Object[] {id}, rowMapper);
+      Publisher publisher = jdbcTemplate.queryForObject(sql, new Object[] { id }, rowMapper);
       return Optional.ofNullable(publisher);
     } catch (Exception e) {
       return Optional.empty();
@@ -74,7 +71,7 @@ public class PublisherRepositoryImpl implements PublisherRepository {
   public Optional<Publisher> findByName(String name) {
     String sql = "SELECT * FROM publishers WHERE name = ?";
     try {
-      Publisher publisher = jdbcTemplate.queryForObject(sql, new Object[] {name}, rowMapper);
+      Publisher publisher = jdbcTemplate.queryForObject(sql, new Object[] { name }, rowMapper);
       return Optional.ofNullable(publisher);
     } catch (Exception e) {
       return Optional.empty();
@@ -84,7 +81,7 @@ public class PublisherRepositoryImpl implements PublisherRepository {
   @Override
   public List<Publisher> findByCountry(String country) {
     String sql = "SELECT * FROM publishers WHERE country LIKE ?";
-    return jdbcTemplate.query(sql, new Object[] {"%" + country + "%"}, rowMapper);
+    return jdbcTemplate.query(sql, new Object[] { "%" + country + "%" }, rowMapper);
   }
 
   @Override

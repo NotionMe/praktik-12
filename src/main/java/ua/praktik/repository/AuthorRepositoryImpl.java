@@ -16,14 +16,12 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     this.jdbcTemplate = jdbcTemplate;
   }
 
-  private final RowMapper<Author> rowMapper =
-      (rs, i) ->
-          Author.builder()
-              .id(rs.getInt("id"))
-              .name(rs.getString("name"))
-              .country(rs.getString("country"))
-              .birthYear(rs.getInt("birth_year"))
-              .build();
+  private final RowMapper<Author> rowMapper = (rs, i) -> Author.builder()
+      .id(rs.getInt("id"))
+      .name(rs.getString("name"))
+      .country(rs.getString("country"))
+      .birthYear(rs.getInt("birth_year"))
+      .build();
 
   @Override
   public Integer persist(Author author) {
@@ -35,9 +33,8 @@ public class AuthorRepositoryImpl implements AuthorRepository {
   @Override
   public boolean update(Author author) {
     String sql = "UPDATE authors SET name = ?, country = ?, birth_year = ? WHERE id = ?";
-    int rowsAffected =
-        jdbcTemplate.update(
-            sql, author.getName(), author.getCountry(), author.getBirthYear(), author.getId());
+    int rowsAffected = jdbcTemplate.update(
+        sql, author.getName(), author.getCountry(), author.getBirthYear(), author.getId());
     return rowsAffected > 0;
   }
 
@@ -45,7 +42,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
   public Optional<Author> findById(Integer id) {
     String sql = "SELECT * FROM authors WHERE id = ?";
     try {
-      Author author = jdbcTemplate.queryForObject(sql, new Object[] {id}, rowMapper);
+      Author author = jdbcTemplate.queryForObject(sql, new Object[] { id }, rowMapper);
       return Optional.ofNullable(author);
     } catch (Exception e) {
       return Optional.empty();
@@ -69,7 +66,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
   public Optional<Author> findByName(String name) {
     String sql = "SELECT * FROM authors WHERE name = ?";
     try {
-      Author author = jdbcTemplate.queryForObject(sql, new Object[] {name}, rowMapper);
+      Author author = jdbcTemplate.queryForObject(sql, new Object[] { name }, rowMapper);
       return Optional.ofNullable(author);
     } catch (Exception e) {
       return Optional.empty();
@@ -79,7 +76,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
   @Override
   public List<Author> findByCountry(String country) {
     String sql = "SELECT * FROM authors WHERE country LIKE ?";
-    return jdbcTemplate.query(sql, new Object[] {"%" + country + "%"}, rowMapper);
+    return jdbcTemplate.query(sql, new Object[] { "%" + country + "%" }, rowMapper);
   }
 
   @Override
